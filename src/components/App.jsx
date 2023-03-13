@@ -1,62 +1,49 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from './Container/Container';
-import { Counter } from './Counter/Counter';
+import { CounterButtons } from './Counter/CounterButtons';
 import { Statistics } from './Statictics/Statictics';
 
-export class App extends React.Component {
-  total = 0;
-  percent = 0;
-  totalPercent = null;
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-  good = () => {
-    this.setState(prevState => {
-      return {
-        good: prevState.good + 1,
-      };
-    });
-  };
-  bad = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
-  };
-  neutral = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-  countTotalFeedback() {
-    const { good, bad, neutral } = this.state;
-    return (this.total = good + neutral + bad);
-  }
-  countPositiveFeedbackPercentage() {
-    const { good, bad } = this.state;
-    this.totalPercent = good + bad;
-    return (this.percent = Math.round((good / this.totalPercent) * 100));
-  }
+export const App = () => {
+  const [good, setGood] = useState(0);
+  const [bad, setBad] = useState(0);
+  const [nautral, setNautral] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [pisitiveFeedback, setPisitiveFeedback] = useState(0);
+  const hadleChange = event => {
+    const { name } = event.target;
 
-  render() {
-    const { good, neutral, bad } = this.state;
-    return (
-      <Container>
-        <Counter good={this.good} neutral={this.neutral} bad={this.bad} />
+    switch (name) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;
+      case 'neutral':
+        setNautral(nautral + 1);
+        break;
 
-        <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          countTotalFeedback={this.countTotalFeedback()}
-          countPositiveFeedbackPercentage={this.countPositiveFeedbackPercentage()}
-        />
-      </Container>
-    );
-  }
-}
+      default:
+        return;
+    }
+  };
+  useEffect(() => {
+    setTotal(good + nautral + bad);
+
+    setPisitiveFeedback(Math.round((good / total) * 100));
+  }, [good, bad, nautral, total]);
+
+  return (
+    <Container>
+      <CounterButtons onBtnClick={hadleChange} />
+
+      <Statistics
+        good={good}
+        neutral={nautral}
+        bad={bad}
+        countTotalFeedback={total}
+        countPositiveFeedbackPercentage={pisitiveFeedback}
+      />
+    </Container>
+  );
+};
