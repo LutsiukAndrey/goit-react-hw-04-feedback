@@ -1,0 +1,9 @@
+.button {
+  color: rgb(145, 147, 143);
+  background-color: rgb(60, 207, 180);
+  padding: 10px;
+  border: transparent;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgb(232, 143, 35);
+  margin-right: 10px;
+}
