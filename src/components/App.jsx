@@ -7,8 +7,6 @@ export const App = () => {
   const [good, setGood] = useState(0);
   const [bad, setBad] = useState(0);
   const [nautral, setNautral] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [pisitiveFeedback, setPisitiveFeedback] = useState(0);
   const hadleChange = event => {
     const { name } = event.target;
 
@@ -27,11 +25,9 @@ export const App = () => {
         return;
     }
   };
-  useEffect(() => {
-    setTotal(good + nautral + bad);
-
-    setPisitiveFeedback(Math.round((good / total) * 100));
-  }, [good, bad, nautral, total]);
+  const total = good + nautral + bad;
+  const positiveFeedback = Math.round((good / total) * 100);
+  useEffect(() => {}, [good, bad, nautral]);
 
   return (
     <Container>
@@ -42,7 +38,7 @@ export const App = () => {
         neutral={nautral}
         bad={bad}
         countTotalFeedback={total}
-        countPositiveFeedbackPercentage={pisitiveFeedback}
+        countPositiveFeedbackPercentage={positiveFeedback}
       />
     </Container>
   );

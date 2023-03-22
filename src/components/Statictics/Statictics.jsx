@@ -1,4 +1,4 @@
-import { Notification } from 'Notification/Notification';
+import { Notification } from 'components/Notification/Notification';
 import PropTypes from 'prop-types';
 
 export const Statistics = ({
